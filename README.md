@@ -3,9 +3,7 @@
 These instructions were created for running the app on Windows.
 
 1. Download the project to your desktop and unzip.
-2. Ensure that NPM is installed.
-    a. Open a command prompt.
-    b. Type "npm -v" without quotes, if it returns a version number, it is. 
+2. Ensure that NPM is installed. Open a command prompt enter "npm -v".    
 3. Open a comman prompt and navigate to the root project folder.
 4. Type "npm install" to install dependencies
 5. Type "node app" to start the Node.js server
