@@ -41,8 +41,7 @@
             type: "GET",
             url: link,
             headers: { "api-key": "<%= apiKey %>" },
-            success: function(result){
-              console.log(result.batSide);
+            success: function(result){              
               $("#player").html(                
                 "<table class='table table-striped' style='width: 240px;'><tbody>"
                 + "<tr><td colspan='2'><img src='" + result.picture + "''><h4>" + result.firstName + " " + result.lastName + "</h4></td></tr>"
