@@ -11,10 +11,10 @@ app.get('/', (req, res) => {
     res.render('home', { apiKey : apiKey });
 })
 
-app.get('/:teamName/:team', (req, res) => {
-    res.render('team', { apiKey : apiKey, teamInfo : req });
+app.get('/player/:player', (req, res) => {
+    res.render('player', { apiKey : apiKey, playerInfo : req });
 })
 
-app.get('/:player', (req, res) => {
-    res.render('player', { apiKey : apiKey, playerInfo : req });
+app.get('/:teamName/:team', (req, res) => {
+    res.render('team', { apiKey : apiKey, teamInfo : req });
 })

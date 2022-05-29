@@ -11,7 +11,7 @@
     <body>
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <div class="container-fluid">
-              <a class="navbar-brand" href="#">Navbar</a>
+              <a class="navbar-brand" href="/">Navbar</a>
               <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
               </button>
@@ -19,9 +19,6 @@
                 <ul class="navbar-nav">
                   <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="/">Home</a> 
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="/about">About</a>
                   </li>
                 </ul>
               </div>
@@ -55,7 +52,7 @@
     <script src="http://cdn.datatables.net/1.12.0/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
     <script>      
-      const link = "http://brew-roster-svc.us-e2.cloudhub.io/api/teams/<%= teamInfo.params.team %>/players"
+      var link = "http://brew-roster-svc.us-e2.cloudhub.io/api/teams/<%= teamInfo.params.team %>/players"
       console.log(link);      
       $.ajax({
           type: "GET",
@@ -81,7 +78,7 @@
           columns: [
             { data : "name" , 
               render: function (data, type, row ){
-                return "<a href='" + row.id + "'>" + data + "</a>"
+                return "<a href='/player/" + row.id + "'>" + data + "</a>"
               }
             }
           ],

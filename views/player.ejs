@@ -11,7 +11,7 @@
     <body>
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <div class="container-fluid">
-              <a class="navbar-brand" href="#">Navbar</a>
+              <a class="navbar-brand" href="/">Navbar</a>
               <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
               </button>
@@ -20,86 +20,41 @@
                   <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="/">Home</a> 
                   </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="/about">About</a>
-                  </li>
                 </ul>
               </div>
             </div>
           </nav>
           <br/>          
           <div class="container-fluid">
-            <table id="myTable" class="display" width="100%">          
-              <thead>
-                  <tr>
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                    <th>Name</th>
-                    <th>Position</th>
-                    <th>Batting Stance</th>
-                    <th>Throwing Stance</th>
-                    <th>Number</th>
-                    <th>Birth City</th>
-                    <th>Birth State</th>
-                    <th>Birth Country</th>
-                  </tr>
-              </thead>
-              <tfoot>
-                <tr>
-                  <th></th>
-                  <th></th>
-                  <th></th>
-                  <th></th>
-                  <th></th>
-                  <th></th>
-                  <th></th>
-                  <th></th>
-                  <th></th>
-                  <th></th>
-                </tr>          
-              </tfoot>
-              <tbody>                
-                <tr>
-                  <td></td>
-                </tr>
-              </tbody>
-            </table>
-          </div>          
+            <div id="player"></div>
+          </div>        
     </body>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script src="http://cdn.datatables.net/1.12.0/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
     <script>      
-      const link = "http://brew-roster-svc.us-e2.cloudhub.io/api/player/<%= playerInfo.params.player %>"
-      console.log("<%= playerInfo.params.player %>");
-      $.ajax({
-          type: "GET",
-          url: link,
-          headers: { "api-key": "<%= apiKey %>" },
-          success: function(result){
-            console.log(result);
-          }
-      });
       $(document).ready(function(){
-        // Datatables Logic
-        const myTable = $('#myTable').DataTable({
-          // Ajax Call
-          ajax: {
+        var link = "http://brew-roster-svc.us-e2.cloudhub.io/api/player/<%= playerInfo.params.player %>"
+        console.log(link);
+        $.ajax({
+            type: "GET",
             url: link,
-            type: "get",
-            dataSrc: "",
-            beforeSend: function (request) {
-              request.setRequestHeader("api-key", "<%= apiKey %>" );
-            },
-          },
-          // Columns
-          columns: [
-            { data : "name" , 
-              render: function (data, type, row ){
-                return "<a href='" + row.id + "'>" + data + "</a>"
-              }
+            headers: { "api-key": "<%= apiKey %>" },
+            success: function(result){
+              console.log(result.batSide);
+              $("#player").html(                
+                "<table class='table table-striped' style='width: 240px;'><tbody>"
+                + "<tr><td colspan='2'><img src='" + result.picture + "''><h4>" + result.firstName + " " + result.lastName + "</h4></td></tr>"
+                + "<tr><th>Position:</th><td>" + result.primaryPosition + "</td></tr>"
+                + "<tr><th>Batting Stance:</th><td>" + result.batSide + "</td></tr>"
+                + "<tr><th>Throwing Stance:</th><td>" + result.throwSide + "</td></tr>"
+                + "<tr><th>Number:</th><td>" + result.number + "</td></tr>"
+                + "<tr><th>Birth City:</th><td>" + result.birthCity + "</td></tr>"
+                + "<tr><th>Birth State:</th><td>" + result.birthStateProvince + "</td></tr>"
+                + "<tr><th>Birth Country:</th><td>" + result.birthCountry + "</td></tr>"                
+                + "</tbody></table>"
+              )
             }
-          ]
         });
       });
     </script>
